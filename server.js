@@ -28,3 +28,6 @@ const port = process.env.PORT || 4000;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then(() => app.listen(port, () => console.log(`Server running on http://localhost:${port}`)))
   .catch((err) => console.log(err));
+
+// this is for STRIPE_SECRET_KEY :-
+  // REMOVED51TJy18JIPyRQy5FMUWgjSFrECegkbYqZ0P9aV9DvihYVAoDFqwLyiE15b9TpwyBGfkwZSjAjT0wU9SDbpJI1vuZm008eZu72fR
