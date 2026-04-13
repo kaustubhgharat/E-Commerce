@@ -41,7 +41,7 @@ module.exports.signup = (req,res) => {
             })
         })
     }).catch(err => res.status(500).json({ msg: err.message }));
-
+};
 module.exports.login = async (req,res) => {
     const { email, password } = req.body;
     if(!email || !password){
