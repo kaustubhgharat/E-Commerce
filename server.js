@@ -26,7 +26,26 @@ if(process.env.NODE_ENV === 'production') {
 const dbURI = process.env.DB_URI;
 const port = process.env.PORT || 4000;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
-  .then(() => app.listen(port, () => console.log(`Server running on http://localhost:${port}`)))
+  .then(async () => {
+    const Item = require('./models/Item');
+    const count = await Item.countDocuments();
+    if(count === 0){
+        await Item.insertMany([
+            { title: 'Wireless Headphones', description: 'Premium noise-cancelling over-ear headphones', category: 'Electronics', price: 2999 },
+            { title: 'Running Shoes', description: 'Lightweight and breathable sports shoes', category: 'Footwear', price: 1499 },
+            { title: 'Backpack', description: 'Durable 30L travel backpack with laptop compartment', category: 'Bags', price: 999 },
+            { title: 'Sunglasses', description: 'UV400 polarized sunglasses', category: 'Accessories', price: 599 },
+            { title: 'Smartwatch', description: 'Fitness tracker with heart rate monitor', category: 'Electronics', price: 3499 },
+            { title: 'Cotton T-Shirt', description: 'Comfortable everyday cotton t-shirt', category: 'Clothing', price: 299 },
+            { title: 'Yoga Mat', description: 'Non-slip 6mm thick exercise mat', category: 'Fitness', price: 799 },
+            { title: 'Water Bottle', description: 'Insulated stainless steel 1L bottle', category: 'Fitness', price: 449 },
+            { title: 'Desk Lamp', description: 'LED adjustable desk lamp with USB charging port', category: 'Home', price: 849 },
+            { title: 'Notebook Set', description: 'Pack of 3 ruled notebooks A5 size', category: 'Stationery', price: 199 },
+        ]);
+        console.log('Default products seeded');
+    }
+    app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
+  })
   .catch((err) => console.log(err));
 
 
